@@ -126,6 +126,8 @@ class HiggsSidebar extends HTMLElement {
     
         shadow.appendChild(style);
         shadow.appendChild(aside);
+
+        document.querySelector('a.active').scrollIntoView(false);
     }
 }
 
