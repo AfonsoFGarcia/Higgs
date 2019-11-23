@@ -1,0 +1,35 @@
+body {
+    margin: 0;
+}
+
+.people {
+    background-image: url("/Higgs/assets/people.svg");
+}
+
+.events {
+    background-image: url("/Higgs/assets/event.svg");
+}
+
+.tags {
+    background-image: url("/Higgs/assets/tags.svg");
+}
+
+.check-in {
+    background-image: url("/Higgs/assets/check-in.svg");
+}
+
+.people.active {
+    background-image: url("/Higgs/assets/people.white.svg");
+}
+
+.events.active {
+    background-image: url("/Higgs/assets/event.white.svg");
+}
+
+.tags.active {
+    background-image: url("/Higgs/assets/tags.white.svg");
+}
+
+.check-in.active {
+    background-image: url("/Higgs/assets/check-in.white.svg");
+}
