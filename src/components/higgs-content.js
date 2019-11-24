@@ -10,14 +10,17 @@ const templateString = `
             transition: all 0.15s ease-in-out;
         }
         
+        main.higgs-sidebar-open {
+            margin-left: 16rem;
+        }
+
         @media screen and (max-width: 700px) {
             main {
                 margin-left: 1rem;
             }
-        }
-
-        main.higgs-sidebar-open {
-            margin-left: 16rem;
+            main.higgs-sidebar-open {
+                margin-left: 1rem;
+            }
         }
     </style>
     <main>

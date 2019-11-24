@@ -61,7 +61,7 @@ const templateString = `
             white-space: nowrap;
             }
 
-            aside:hover {
+            aside:hover, .higgs-sidebar-open {
                 width: auto;
             }
 

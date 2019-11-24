@@ -29,7 +29,7 @@ const templateString = `
             height: 7.5rem;
         
             padding: 1.25rem;
-        
+
             background-position: right bottom;
             background-repeat: no-repeat;
             background-size: 7.5rem 7.5rem;
@@ -104,8 +104,18 @@ class HiggsFooter extends HTMLElement {
         }
 
         if (this.hasAttribute('background-image')) {
-            const css = '.higgs-background:hover { background-image: url(' + this.getAttribute('background-image') + '); }';
-            shadow.querySelector('style').appendChild(document.createTextNode(css));
+            const backgroundCss = `
+            .higgs-background:hover { 
+                background-image: url(` + this.getAttribute('background-image') + `); 
+            }
+            `;
+            const footerChildCss = `
+            footer:hover > * {
+                margin-right: 8.75rem;
+            }
+            `;
+            shadow.querySelector('style').appendChild(document.createTextNode(backgroundCss));
+            shadow.querySelector('style').appendChild(document.createTextNode(footerChildCss));
         }
     }
 }
