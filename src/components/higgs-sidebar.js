@@ -1,46 +1,5 @@
-class HiggsSidebar extends HTMLElement {
-    constructor() {
-        super();
-
-        const shadow = this.attachShadow({mode: 'open'});
-
-        const aside = document.createElement('aside');
-
-        const keepOpen = document.createElement('a');
-
-        if (sessionStorage.getItem('keepOpen')) {
-            keepOpen.innerText = 'Auto Close';
-            aside.setAttribute('class', 'higgs-sidebar-open');
-        } else {
-            keepOpen.innerText = 'Keep Open';
-        }
-
-        aside.appendChild(keepOpen);
-
-        keepOpen.addEventListener('click', function() {
-            const aside = document.querySelector('higgs-sidebar').shadowRoot.querySelector('aside');
-            const main = document.querySelector('higgs-content').shadowRoot.querySelector('main');
-
-            console.log(sessionStorage.getItem('keepOpen'));
-
-            if (sessionStorage.getItem('keepOpen')) {
-                main.removeAttribute('class');
-                aside.removeAttribute('class');
-                sessionStorage.removeItem('keepOpen')
-                this.innerText = 'Keep Open'
-            } else {
-                main.setAttribute('class', 'higgs-sidebar-open');
-                aside.setAttribute('class', 'higgs-sidebar-open');
-                sessionStorage.setItem('keepOpen', true);
-                this.innerText = 'Auto Close'
-            }
-        })
-
-        const slot = document.createElement('slot');
-        aside.appendChild(slot);
-
-        const style = document.createElement('style');
-        style.textContent = `
+const templateString = `
+    <style>
         aside {
             width: 15rem;
             position: fixed;
@@ -88,18 +47,18 @@ class HiggsSidebar extends HTMLElement {
         
         @media screen and (max-width: 700px) {
             aside {
-              width: auto;
-              height: 3.5rem;
-              position: sticky;
-              top: 4.5rem;
-              left: 0;
-              right: 0;
-              border: 0;
-              display: flex;
-              flex-direction: row;
-              flex-wrap: nowrap;
-              overflow-x: auto;
-              white-space: nowrap;
+            width: auto;
+            height: 3.5rem;
+            position: sticky;
+            top: 4.5rem;
+            left: 0;
+            right: 0;
+            border: 0;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            white-space: nowrap;
             }
 
             aside:hover {
@@ -122,10 +81,52 @@ class HiggsSidebar extends HTMLElement {
                 display: none;
             }
         }
-        `;
-    
-        shadow.appendChild(style);
-        shadow.appendChild(aside);
+    </style>
+    <aside>
+        <a id="keep-open">Keep Open</a>
+        <slot></slot>
+    </aside>
+`;
+
+const template = document.createElement('template');
+template.innerHTML = templateString;
+
+class HiggsSidebar extends HTMLElement {
+    constructor() {
+        super();
+
+        const shadow = this.attachShadow({mode: 'open'});
+        shadow.appendChild(template.content.cloneNode(true));
+
+        this._aside = shadow.querySelector('aside');
+
+        this._keepOpen = shadow.querySelector('#keep-open');
+
+        if (sessionStorage.getItem('keepOpen')) {
+            this._keepOpen.innerText = 'Auto Close';
+            this._aside.setAttribute('class', 'higgs-sidebar-open');
+        } else {
+            this._keepOpen.innerText = 'Keep Open';
+        }
+
+        this._keepOpen.addEventListener('click', function() {
+            const aside = document.querySelector('higgs-sidebar').shadowRoot.querySelector('aside');
+            const main = document.querySelector('higgs-content').shadowRoot.querySelector('main');
+
+            console.log(sessionStorage.getItem('keepOpen'));
+
+            if (sessionStorage.getItem('keepOpen')) {
+                main.removeAttribute('class');
+                aside.removeAttribute('class');
+                sessionStorage.removeItem('keepOpen')
+                this.innerText = 'Keep Open'
+            } else {
+                main.setAttribute('class', 'higgs-sidebar-open');
+                aside.setAttribute('class', 'higgs-sidebar-open');
+                sessionStorage.setItem('keepOpen', true);
+                this.innerText = 'Auto Close'
+            }
+        })
 
         document.querySelector('a.active').scrollIntoView(false);
     }

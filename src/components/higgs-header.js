@@ -1,27 +1,5 @@
-class HiggsHeader extends HTMLElement {
-    constructor() {
-        super();
-
-        const shadow = this.attachShadow({mode: 'open'});
-
-        const header = document.createElement('header');
-
-        const navBranding = document.createElement('div');
-        navBranding.setAttribute('class', 'nav-branding');
-
-        const imgLink = document.createElement('a');
-        imgLink.href = this.getAttribute('logo-url');
-
-        const img = document.createElement('img');
-        img.src = this.getAttribute('logo-img');
-        img.setAttribute('class', 'logo');
-
-        const applicationName = document.createElement('span');
-        applicationName.setAttribute('class', 'application-name');
-        applicationName.textContent = this.getAttribute('application-name');
-
-        const style = document.createElement('style');
-        style.textContent = `
+const templateString = `
+    <style>
         header {
             position: fixed;
             top: 0;
@@ -66,14 +44,35 @@ class HiggsHeader extends HTMLElement {
             overflow: hidden;
             margin-right: 1rem;
         }
-        `;
-    
-        shadow.appendChild(style);
-        shadow.appendChild(header);
-        header.appendChild(navBranding);
-        navBranding.appendChild(imgLink);
-        imgLink.appendChild(img);
-        header.appendChild(applicationName);
+    </style>
+    <header>
+        <div class="nav-branding">
+            <a>
+                <img class="logo">
+            </a>
+        </div>
+        <span class="application-name"></span>
+    </header>
+`;
+
+const template = document.createElement('template');
+template.innerHTML = templateString;
+
+class HiggsHeader extends HTMLElement {
+    constructor() {
+        super();
+
+        const shadow = this.attachShadow({mode: 'open'});
+        shadow.appendChild(template.content.cloneNode(true));
+
+        this._imgLink = shadow.querySelector('a');
+        this._imgLink.href = this.getAttribute('logo-url');
+
+        this._img = shadow.querySelector('.logo');
+        this._img.src = this.getAttribute('logo-img');
+
+        this._applicationName = shadow.querySelector('.application-name');
+        this._applicationName.textContent = this.getAttribute('application-name');
     }
 }
 

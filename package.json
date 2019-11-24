@@ -1,0 +1,27 @@
+{
+  "name": "higgs",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AfonsoFGarcia/Higgs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AfonsoFGarcia/Higgs/issues"
+  },
+  "homepage": "https://www.afonsogarcia.pt/Higgs",
+  "devDependencies": {
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
