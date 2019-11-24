@@ -1,0 +1,15 @@
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+}
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+    font-family: 'Neuton', serif;
+    color: #0033a0;
+    border-bottom: 2px solid;
+}
