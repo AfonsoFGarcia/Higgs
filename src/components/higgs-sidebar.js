@@ -95,7 +95,7 @@ class HiggsSidebar extends HTMLElement {
     constructor() {
         super();
 
-        const shadow = this.attachShadow({mode: 'open'});
+        const shadow = this.attachShadow({mode: 'closed'});
         shadow.appendChild(template.content.cloneNode(true));
 
         this._aside = shadow.querySelector('aside');
@@ -110,25 +110,33 @@ class HiggsSidebar extends HTMLElement {
         }
 
         this._keepOpen.addEventListener('click', function() {
-            const aside = document.querySelector('higgs-sidebar').shadowRoot.querySelector('aside');
-            const main = document.querySelector('higgs-content').shadowRoot.querySelector('main');
+            const aside = document.querySelector('higgs-sidebar');
+            const main = document.querySelector('higgs-content');
 
             console.log(sessionStorage.getItem('keepOpen'));
 
             if (sessionStorage.getItem('keepOpen')) {
-                main.removeAttribute('class');
-                aside.removeAttribute('class');
+                main.expandToAutoClose();
+                aside.shrinkToAutoClose();
                 sessionStorage.removeItem('keepOpen')
                 this.innerText = 'Keep Open'
             } else {
-                main.setAttribute('class', 'higgs-sidebar-open');
-                aside.setAttribute('class', 'higgs-sidebar-open');
+                main.shrinkToKeepOpen();
+                aside.expandToKeepOpen();
                 sessionStorage.setItem('keepOpen', true);
                 this.innerText = 'Auto Close'
             }
         })
 
         document.querySelector('a.active').scrollIntoView(false);
+    }
+
+    shrinkToAutoClose() {
+        this._aside.removeAttribute('class');
+    }
+
+    expandToKeepOpen() {
+        this._aside.setAttribute('class', 'higgs-sidebar-open');
     }
 }
 

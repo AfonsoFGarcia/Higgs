@@ -62,7 +62,7 @@ class HiggsFooter extends HTMLElement {
     constructor() {
         super();
 
-        const shadow = this.attachShadow({mode: 'open'});
+        const shadow = this.attachShadow({mode: 'closed'});
         shadow.appendChild(template.content.cloneNode(true));
 
         this._footer = shadow.querySelector('footer');

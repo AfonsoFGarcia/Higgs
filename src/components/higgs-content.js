@@ -32,7 +32,7 @@ class HiggsContent extends HTMLElement {
     constructor() {
         super();
 
-        const shadow = this.attachShadow({mode: 'open'});
+        const shadow = this.attachShadow({mode: 'closed'});
         shadow.appendChild(template.content.cloneNode(true));
 
         this._main = shadow.querySelector('main');
@@ -40,6 +40,14 @@ class HiggsContent extends HTMLElement {
         if (sessionStorage.getItem('keepOpen')) {
             this._main.setAttribute('class', 'higgs-sidebar-open');
         }
+    }
+
+    shrinkToKeepOpen() {
+        this._main.setAttribute('class', 'higgs-sidebar-open');
+    }
+
+    expandToAutoClose() {
+        this._main.removeAttribute('class');
     }
 }
 

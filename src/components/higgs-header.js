@@ -62,7 +62,7 @@ class HiggsHeader extends HTMLElement {
     constructor() {
         super();
 
-        const shadow = this.attachShadow({mode: 'open'});
+        const shadow = this.attachShadow({mode: 'closed'});
         shadow.appendChild(template.content.cloneNode(true));
 
         this._imgLink = shadow.querySelector('a');
