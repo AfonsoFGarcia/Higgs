@@ -2,34 +2,10 @@ body {
     margin: 0;
 }
 
-.people {
-    background-image: url("../assets/people.svg");
+.home {
+    background-image: url("../assets/home.svg");
 }
 
-.events {
-    background-image: url("../assets/event.svg");
-}
-
-.tags {
-    background-image: url("../assets/tags.svg");
-}
-
-.check-in {
-    background-image: url("../assets/check-in.svg");
-}
-
-.people.active {
-    background-image: url("../assets/people.white.svg");
-}
-
-.events.active {
-    background-image: url("../assets/event.white.svg");
-}
-
-.tags.active {
-    background-image: url("../assets/tags.white.svg");
-}
-
-.check-in.active {
-    background-image: url("../assets/check-in.white.svg");
+.home.active {
+    background-image: url("../assets/home.white.svg");
 }
