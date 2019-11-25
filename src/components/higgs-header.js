@@ -44,8 +44,27 @@ const templateString = `
             overflow: hidden;
             margin-right: 1rem;
         }
+
+        .sidebar-toggle {
+            display: none;
+        }
+
+        @media screen and (max-width: 700px) {
+            .sidebar-toggle {
+                display: block;
+                margin-top: 0.5rem;
+                margin-left: 1rem;
+            }
+
+            .sidebar-toggle > img {
+                height: 2rem;
+            }
+        }
     </style>
     <header>
+        <div class="sidebar-toggle">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath style='fill: %23ffffff' d='M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z'/%3E%3C/svg%3E">
+        </div>
         <div class="nav-branding">
             <a>
                 <img class="logo">
@@ -73,6 +92,11 @@ class HiggsHeader extends HTMLElement {
 
         this._applicationName = shadow.querySelector('.application-name');
         this._applicationName.textContent = this.getAttribute('application-name');
+
+        shadow.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            const sidebar = document.querySelector('higgs-sidebar');
+            sidebar ? sidebar.toggleSidebar() : null;
+        })
     }
 }
 
