@@ -108,19 +108,23 @@ class HiggsSidebar extends HTMLElement {
         document.querySelector('a.active').scrollIntoView(false);
 
         Hammer(document.body).on('swiperight', function(event) {
-            const endPoint = event.pointers[0].pageX;
-            const distance = event.deltaX;
-            const origin = endPoint - distance;
-            const maxStartPoint = Math.floor(window.innerWidth / 10);
-
-            if (origin <= maxStartPoint && sessionStorage.getItem('keepOpen') === null) {
-                document.querySelector('higgs-sidebar').toggleSidebar();
+            if (window.innerWidth < 768) {
+                const endPoint = event.pointers[0].pageX;
+                const distance = event.deltaX;
+                const origin = endPoint - distance;
+                const maxStartPoint = Math.floor(window.innerWidth / 10);
+    
+                if (origin <= maxStartPoint && sessionStorage.getItem('keepOpen') === null) {
+                    document.querySelector('higgs-sidebar').toggleSidebar();
+                }
             }
         });
 
         Hammer(document.body).on('swipeleft', function() {
-            if(sessionStorage.getItem('keepOpen')) {
-                document.querySelector('higgs-sidebar').toggleSidebar();
+            if (window.innerWidth < 768) {
+                if(sessionStorage.getItem('keepOpen')) {
+                    document.querySelector('higgs-sidebar').toggleSidebar();
+                }
             }
         });
     }
