@@ -11,10 +11,10 @@ const templateString = `
         }
         
         main.higgs-sidebar-open {
-            margin-left: 16rem;
+            margin-left: 18rem;
         }
 
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 768px) {
             main {
                 margin-left: 1rem;
             }

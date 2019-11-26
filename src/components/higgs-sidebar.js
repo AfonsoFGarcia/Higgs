@@ -3,12 +3,12 @@ import '../../node_modules/hammerjs/hammer'
 const templateString = `
     <style>
         aside {
-            width: 15rem;
+            width: 17rem;
             position: fixed;
             z-index: 1;
             top: 4.5rem;
             bottom: 1.75rem;
-            left: -11rem;
+            left: -13rem;
             background-color: #dadada;
             overflow-x: hidden;
             transition: all 0.15s ease-in-out;
@@ -17,7 +17,7 @@ const templateString = `
         }
         
         aside:hover, .higgs-sidebar-open {
-            width: 15rem;
+            width: 17rem;
             left: 0;
         }
 
@@ -58,10 +58,15 @@ const templateString = `
             background-color: #cacaca;
         }
         
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 768px) {
             aside:not(.higgs-sidebar-open) {
-                left: -15rem;
+                left: -17rem;
                 box-shadow: none;
+            }
+
+            aside:hover, .higgs-sidebar-open {
+                width: 90%;
+                min-width: 17rem;
             }
 
             a {

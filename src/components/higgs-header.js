@@ -49,7 +49,7 @@ const templateString = `
             display: none;
         }
 
-        @media screen and (max-width: 700px) {
+        @media screen and (max-width: 768px) {
             .sidebar-toggle {
                 display: block;
                 margin-top: 0.5rem;
