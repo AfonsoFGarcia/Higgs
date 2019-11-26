@@ -1,3 +1,5 @@
+import '../../node_modules/hammerjs/hammer'
+
 const templateString = `
     <style>
         aside {
@@ -95,11 +97,27 @@ class HiggsSidebar extends HTMLElement {
         }
 
         this._keepOpen.addEventListener('click', function() {
-            const aside = document.querySelector('higgs-sidebar');
-            aside.toggleSidebar();
+            document.querySelector('higgs-sidebar').toggleSidebar();
         })
 
         document.querySelector('a.active').scrollIntoView(false);
+
+        Hammer(document.body).on('swiperight', function(event) {
+            const endPoint = event.pointers[0].pageX;
+            const distance = event.deltaX;
+            const origin = endPoint - distance;
+            const maxStartPoint = Math.floor(window.innerWidth / 10);
+
+            if (origin <= maxStartPoint && sessionStorage.getItem('keepOpen') === null) {
+                document.querySelector('higgs-sidebar').toggleSidebar();
+            }
+        });
+
+        Hammer(document.body).on('swipeleft', function() {
+            if(sessionStorage.getItem('keepOpen')) {
+                document.querySelector('higgs-sidebar').toggleSidebar();
+            }
+        });
     }
 
     shrinkToAutoClose() {
@@ -113,8 +131,6 @@ class HiggsSidebar extends HTMLElement {
     toggleSidebar() {
         const aside = document.querySelector('higgs-sidebar');
         const main = document.querySelector('higgs-content');
-
-        console.log(sessionStorage.getItem('keepOpen'));
 
         if (sessionStorage.getItem('keepOpen')) {
             main ? main.expandToAutoClose() : null;
