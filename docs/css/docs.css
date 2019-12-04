@@ -5,3 +5,11 @@
 .home.active {
     background-image: url("../assets/home.white.svg");
 }
+
+.book {
+    background-image: url("../assets/book.svg");
+}
+
+.book.active {
+    background-image: url("../assets/book.white.svg");
+}

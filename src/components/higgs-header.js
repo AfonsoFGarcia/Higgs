@@ -12,6 +12,7 @@ const templateString = `
             font-family: 'Neuton', serif;
             box-shadow:0px 0px 10px 0px #2f2f2f;
             z-index: 2;
+            height: 4rem;
         }
         
         .nav-branding {
@@ -20,7 +21,7 @@ const templateString = `
             display: inline-flex;
             align-self: flex-start;
             height: 4rem;
-            margin: 0 1rem;
+            margin-left: 1rem;
             box-shadow: 0px 0px 10px 0px #000000;
         }
         
@@ -42,7 +43,7 @@ const templateString = `
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            margin-right: 1rem;
+            margin: 0 1rem;
         }
 
         .sidebar-toggle {
@@ -84,17 +85,23 @@ class HiggsHeader extends HTMLElement {
         const shadow = this.attachShadow({mode: 'closed'});
         shadow.appendChild(template.content.cloneNode(true));
 
-        this._imgLink = shadow.querySelector('a');
-        this._imgLink.href = this.getAttribute('logo-url');
+        if (this.getAttribute('logo-img')) {
+            this._imgLink = shadow.querySelector('a');
+            this._imgLink.href = this.getAttribute('logo-url');
 
-        this._img = shadow.querySelector('.logo');
-        this._img.src = this.getAttribute('logo-img');
+            this._img = shadow.querySelector('.logo');
+            this._img.src = this.getAttribute('logo-img');
+        } else {
+            shadow.querySelector('header').removeChild(shadow.querySelector('.nav-branding'));
+        }
 
         this._applicationName = shadow.querySelector('.application-name');
         this._applicationName.textContent = this.getAttribute('application-name');
 
+        const that = this;
+
         shadow.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            const sidebar = document.querySelector('higgs-sidebar');
+            const sidebar = that.closest('body').querySelector('higgs-sidebar');
             sidebar ? sidebar.toggleSidebar() : null;
         })
     }

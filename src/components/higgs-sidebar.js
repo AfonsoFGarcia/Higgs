@@ -138,8 +138,8 @@ class HiggsSidebar extends HTMLElement {
     }
 
     toggleSidebar() {
-        const aside = document.querySelector('higgs-sidebar');
-        const main = document.querySelector('higgs-content');
+        const aside = this.closest('body').querySelector('higgs-sidebar');
+        const main = this.closest('body').querySelector('higgs-content');
 
         if (sessionStorage.getItem('keepOpen')) {
             main ? main.expandToAutoClose() : null;
