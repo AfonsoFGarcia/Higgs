@@ -5,7 +5,7 @@ const templateString = `
         aside {
             width: 17rem;
             position: fixed;
-            z-index: 1;
+            z-index: 2;
             top: 4.5rem;
             bottom: 1.75rem;
             left: -13rem;
@@ -26,45 +26,45 @@ const templateString = `
         }
 
         ::slotted(a.sub-menu) {
-            padding-left: 2rem;
-            margin-right: 4rem;
-            font-size: 1rem;
-            visibility: hidden;
-            max-height: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            transition: all 0.15s ease-in-out;
+            padding-left: 2rem !important;
+            margin-right: 4rem !important;
+            font-size: 1rem !important;
+            visibility: hidden !important;
+            max-height: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            transition: all 0.15s ease-in-out !important;
         }
 
         aside:hover > ::slotted(a.sub-menu),
         .higgs-sidebar-open > ::slotted(a.sub-menu) {
-            visibility: visible;
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            max-height: 1rem;
-            margin-right: 0;
+            visibility: visible !important;
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
+            max-height: 1rem !important;
+            margin-right: 0 !important;
         }
         
         ::slotted(a), a {
-            padding: 1rem;
-            text-decoration: none;
-            font-size: 1.25rem;
-            display: block;
-            color: #000000;
+            padding: 1rem !important;
+            text-decoration: none !important;
+            font-size: 1.25rem !important;
+            display: block !important;
+            color: #000000 !important;
         
-            background-position: right center;
-            background-repeat: no-repeat;
-            background-size: 2rem 2rem;
-            background-origin: content-box;
+            background-position: right center !important;
+            background-repeat: no-repeat !important;
+            background-size: 2rem 2rem !important;
+            background-origin: content-box !important;
         }
         
         ::slotted(a.active) {
-            background-color: #0033a0;
-            color: #ffffff;
+            background-color: #0033a0 !important;
+            color: #ffffff !important;
         }
         
         ::slotted(a:hover:not(.active)), a:hover {
-            background-color: #cacaca;
+            background-color: #cacaca !important;
         }
         
         @media screen and (max-width: 768px) {
@@ -83,10 +83,10 @@ const templateString = `
             }
             
             ::slotted(a.sub-menu) {
-                visibility: visible;
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-                max-height: 1rem;
+                visibility: visible !important;
+                padding-top: 1rem !important;
+                padding-bottom: 1rem !important;
+                max-height: 1rem !important;
             }
         }
     </style>
@@ -156,18 +156,30 @@ class HiggsSidebar extends HTMLElement {
     toggleSidebar() {
         const aside = this.closest('body').querySelector('higgs-sidebar');
         const main = this.closest('body').querySelector('higgs-content');
+        const nav = this.closest('body').querySelector('higgs-app-bar');
+
+        let event;
 
         if (sessionStorage.getItem('keepOpen')) {
             main ? main.expandToAutoClose() : null;
+            nav ? nav.expandToAutoClose() : null;
             aside.shrinkToAutoClose();
             sessionStorage.removeItem('keepOpen')
             this._keepOpen.innerText = 'Keep Open'
+            event = new CustomEvent('sidebar-toggled', { isOpen : false })
         } else {
             main ? main.shrinkToKeepOpen() : null;
+            nav ? nav.shrinkToKeepOpen() : null;
             aside.expandToKeepOpen();
             sessionStorage.setItem('keepOpen', true);
             this._keepOpen.innerText = 'Auto Close'
+            event = new CustomEvent('sidebar-toggled', { isOpen : true })
         }
+
+        const that = this;
+        setTimeout(function() {
+            that.dispatchEvent(event);
+        }, 150);
     }
 }
 

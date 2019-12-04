@@ -6,7 +6,7 @@ const templateString = `
             left: 0;
             right: 0;
             height: 1.25rem;
-            z-index: 3;
+            z-index: 4;
         
             display: flex;
             flex-direction: column;

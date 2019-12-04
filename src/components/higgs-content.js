@@ -9,6 +9,10 @@ const templateString = `
             font-family: 'Lato', sans-serif;
             transition: all 0.15s ease-in-out;
         }
+
+        main#higgs-app-bar {
+            margin-top: 9rem;
+        }
         
         main.higgs-sidebar-open {
             margin-left: 18rem;
@@ -42,6 +46,10 @@ class HiggsContent extends HTMLElement {
 
         if (sessionStorage.getItem('keepOpen')) {
             this._main.setAttribute('class', 'higgs-sidebar-open');
+        }
+
+        if (this.closest('body').querySelector('higgs-app-bar')) {
+            this._main.id = 'higgs-app-bar';
         }
     }
 

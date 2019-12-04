@@ -11,7 +11,7 @@ const templateString = `
             color: white;
             font-family: 'Neuton', serif;
             box-shadow:0px 0px 10px 0px #2f2f2f;
-            z-index: 2;
+            z-index: 3;
             height: 4rem;
         }
         
