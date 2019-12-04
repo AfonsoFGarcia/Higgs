@@ -29,10 +29,19 @@ const templateString = `
             padding-left: 2rem;
             margin-right: 4rem;
             font-size: 1rem;
+            visibility: hidden;
+            max-height: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            transition: all 0.15s ease-in-out;
         }
 
         aside:hover > ::slotted(a.sub-menu),
         .higgs-sidebar-open > ::slotted(a.sub-menu) {
+            visibility: visible;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            max-height: 1rem;
             margin-right: 0;
         }
         
@@ -71,6 +80,13 @@ const templateString = `
 
             a {
                 display: none;
+            }
+            
+            ::slotted(a.sub-menu) {
+                visibility: visible;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                max-height: 1rem;
             }
         }
     </style>
