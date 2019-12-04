@@ -98,12 +98,15 @@ class HiggsHeader extends HTMLElement {
         this._applicationName = shadow.querySelector('.application-name');
         this._applicationName.textContent = this.getAttribute('application-name');
 
-        const that = this;
-
-        shadow.querySelector('.sidebar-toggle').addEventListener('click', function() {
-            const sidebar = that.closest('body').querySelector('higgs-sidebar');
-            sidebar ? sidebar.toggleSidebar() : null;
-        })
+        if (this.closest('body').querySelector('higgs-sidebar')) {
+            const that = this;
+            shadow.querySelector('.sidebar-toggle').addEventListener('click', function() {
+                const sidebar = that.closest('body').querySelector('higgs-sidebar');
+                sidebar ? sidebar.toggleSidebar() : null;
+            })
+        } else {
+            shadow.querySelector('header').removeChild(shadow.querySelector('.sidebar-toggle'));
+        }
     }
 }
 
